@@ -1,0 +1,41 @@
+.post-card {
+  padding: 24px;
+  border-radius: 16px;
+  background-color: #ffffff;
+  margin-bottom: 32px;
+
+  .post-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 32px;
+  }
+
+  .post-abstract {
+    margin-bottom: 32px;
+  }
+
+  .post-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .like {
+      background-color: #1976d2;
+      color: #ffffff;
+    }
+
+    .unlike {
+      background-color: #ebebeb;
+      color: #000000;
+    }
+  }
+}

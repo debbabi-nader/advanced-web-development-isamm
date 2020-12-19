@@ -1,0 +1,15 @@
+<div class="post-card">
+  <div class="post-title">
+    {{ post?.title }}
+  </div>
+  <div class="post-abstract">
+    {{ post?.abstract }}
+  </div>
+  <div class="post-actions">
+    <button
+      (click)="onLikeButtonClick(post?.title)"
+      [class.like]="!post?.liked"
+      [class.unlike]="post?.liked"
+    >{{ post?.liked ? 'Unlike' : 'Like' }}</button>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<app-header [username]="username"></app-header>
+
+<div class="posts-container">
+
+  <app-likes-counter
+    *ngIf="likedPosts > 0"
+    [likes]="likedPosts"
+  ></app-likes-counter>
+
+  <app-post
+    *ngFor="let post of posts"
+    [post]="post"
+    (like)="onLike($event)"
+  ></app-post>
+
+</div>
