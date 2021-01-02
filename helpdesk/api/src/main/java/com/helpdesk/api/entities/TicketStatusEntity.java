@@ -40,6 +40,10 @@ public class TicketStatusEntity implements Serializable {
         super();
     }
 
+    public TicketStatusEntity(TicketStatusEnum status) {
+        this.status = status;
+    }
+
     public TicketStatusEntity(
             String id,
             TicketStatusEnum status,

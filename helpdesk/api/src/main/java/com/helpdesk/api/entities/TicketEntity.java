@@ -46,6 +46,26 @@ public class TicketEntity implements Serializable {
         super();
     }
 
+    public TicketEntity(
+            String label,
+            String description) {
+
+        this.label = label;
+        this.description = description;
+
+    }
+
+    public TicketEntity(
+            String label,
+            String description,
+            UserEntity createdBy) {
+
+        this.label = label;
+        this.description = description;
+        this.createdBy = createdBy;
+
+    }
+
     public String getId() {
         return id;
     }

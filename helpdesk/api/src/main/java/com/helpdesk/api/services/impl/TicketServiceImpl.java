@@ -7,13 +7,14 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.helpdesk.api.entities.TicketEntity;
 import com.helpdesk.api.entities.TicketStatusEntity;
 import com.helpdesk.api.enumerations.TicketStatusEnum;
+import com.helpdesk.api.exceptions.ResourceNotFoundException;
 import com.helpdesk.api.repositories.TicketRepository;
 import com.helpdesk.api.services.TicketService;
 
@@ -29,20 +30,22 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Page<TicketEntity> findTicketsByCreatorId(String creatorId, Pageable pageable) {
-        return this.ticketRepository.findTicketsByCreatorId(creatorId, pageable);
+    public Page<TicketEntity> findTicketsByCreatorId(String creatorId, int page, int size) {
+        return this.ticketRepository.findTicketsByCreatorId(creatorId, PageRequest.of(page, size));
     }
 
     @Override
     public TicketEntity findTicketById(String ticketId) {
-        return this.ticketRepository.findById(ticketId).orElseThrow(RuntimeException::new);
+
+        return this.ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new ResourceNotFoundException(null, ticketId));
+
     }
 
     @Override
     public TicketEntity createTicket(TicketEntity ticketEntity) {
 
         ticketEntity.setId(UUID.randomUUID().toString());
-        this.ticketRepository.saveAndFlush(ticketEntity);
 
         TicketStatusEntity openTicketStatus = new TicketStatusEntity(
                 UUID.randomUUID().toString(),
@@ -54,7 +57,7 @@ public class TicketServiceImpl implements TicketService {
         ticketStatuses.add(openTicketStatus);
         ticketEntity.setStatuses(ticketStatuses);
 
-        return ticketEntity;
+        return this.ticketRepository.saveAndFlush(ticketEntity);
 
     }
 
@@ -76,6 +79,8 @@ public class TicketServiceImpl implements TicketService {
 
         TicketEntity presistedTicketEntity = this.findTicketById(ticketId);
 
+        ticketStatusEntity.setId(UUID.randomUUID().toString());
+        ticketStatusEntity.setTimestamp(Instant.now());
         ticketStatusEntity.setTicket(presistedTicketEntity);
         presistedTicketEntity.getStatuses().add(ticketStatusEntity);
 
