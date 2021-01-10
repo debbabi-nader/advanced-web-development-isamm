@@ -1,0 +1,167 @@
+* {
+  outline: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #18191A;
+  color: #FFFFFF;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.card {
+  width: 100%;
+  padding: 24px;
+  border-radius: 24px;
+  background-color: #242526;
+
+  .card-header {
+
+    .title {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+
+  .card-body {
+
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+
+    button+button {
+      margin-left: 12px;
+    }
+  }
+
+  .card-header+.card-body {
+    margin-top: 48px;
+  }
+
+  .card-body+.card-footer {
+    margin-top: 32px;
+  }
+}
+
+.spacer {
+  flex: 1;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #FFFFFF;
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+
+  i {
+    margin-right: 8px;
+  }
+}
+
+button:disabled,
+button[disabled] {
+  background-color: #4e4e4e;
+  color: #7e7e7e;
+  cursor: default;
+
+  &:hover {
+    background-color: #4e4e4e;
+  }
+}
+
+.btn-primary {
+  background-color: #0A91AB;
+
+  &:hover {
+    background-color: #067c94;
+  }
+}
+
+.btn-secondary {
+  background-color: #333536;
+
+  &:hover {
+    background-color: #3d3e3f;
+  }
+}
+
+.form-group {
+
+  .error-message {
+    margin: 12px 0px 18px 12px;
+    font-size: 12px;
+    color: rgb(209, 41, 41);
+
+    &:before {
+      content: "* ";
+    }
+  }
+}
+
+.form-group+.form-group {
+  margin-top: 12px;
+}
+
+input,
+textarea {
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: #FFFFFF;
+  background-color: #3A3B3C;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 12px;
+}
+
+textarea {
+  resize: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  thead {
+    border-bottom: 1px solid #3E4042;
+
+    tr {
+
+      th {
+        text-align: start;
+        padding: 16px 8px;
+      }
+    }
+  }
+
+  tbody {
+
+    tr {
+
+      td {
+        padding: 10px 8px;
+      }
+    }
+
+    tr.clickable {
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        background-color: #333536;
+      }
+    }
+  }
+}

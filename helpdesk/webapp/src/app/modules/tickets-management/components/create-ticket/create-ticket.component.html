@@ -1,0 +1,51 @@
+<div class="card">
+  <div class="card-header">
+    <p class="title">Create new ticket</p>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="createTicketFormGroup">
+      <div class="form-group">
+        <input
+          id="label"
+          name="label"
+          type="text"
+          placeholder="Label"
+          formControlName="label"
+        >
+        <p
+          class="error-message"
+          *ngIf="createTicketFormGroup.get('label').touched && createTicketFormGroup.get('label').hasError('required')"
+        >
+          This field is required
+        </p>
+      </div>
+      <div class="form-group">
+        <textarea
+          id="description"
+          name="description"
+          rows="10"
+          placeholder="Describe precisely your problem"
+          formControlName="description"
+        ></textarea>
+        <p
+          class="error-message"
+          *ngIf="createTicketFormGroup.get('description').touched && createTicketFormGroup.get('description').hasError('maxlength')"
+        >
+          Description cannot exceed 200 characters in length
+        </p>
+      </div>
+    </form>
+  </div>
+  <div class="card-footer">
+    <div class="spacer"></div>
+    <button
+      class="btn-secondary"
+      (click)="onCancel()"
+    >Cancel</button>
+    <button
+      class="btn-primary"
+      (click)="onSubmit()"
+      [disabled]="createTicketFormGroup.invalid"
+    >Submit</button>
+  </div>
+</div>

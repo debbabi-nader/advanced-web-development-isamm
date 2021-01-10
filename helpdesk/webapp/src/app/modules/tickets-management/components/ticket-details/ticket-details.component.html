@@ -1,0 +1,55 @@
+<div class="card">
+  <div class="card-header">
+    <p class="title">{{ ticket?.label }}</p>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <p class="label">Created by</p>
+      <p class="value">{{ ticket?.createdBy?.firstName + ' ' + ticket?.createdBy?.lastName }}</p>
+    </div>
+    <div class="row">
+      <p class="label">Created at</p>
+      <p class="value">{{ ticket?.statuses[0]?.timestamp | date: 'dd/MM/yyyy HH:mm' }}</p>
+    </div>
+    <div class="row">
+      <p class="label">Current status</p>
+      <p class="value">{{ ticket?.statuses[ticket?.statuses?.length - 1]?.status | ticketStatus }}</p>
+    </div>
+    <div class="column">
+      <p class="label">Description</p>
+      <p class="value">{{ ticket?.description }}</p>
+    </div>
+  </div>
+  <div class="card-footer">
+    <button
+      class="btn-primary"
+      (click)="onEdit()"
+    >
+      <i class="eva eva-edit-outline"></i>
+      Edit
+    </button>
+    <button
+      class="btn-primary"
+      (click)="onDelete()"
+    >
+      <i class="eva eva-trash-2-outline"></i>
+      Delete
+    </button>
+    <div class="spacer"></div>
+    <button
+      class="btn-primary"
+      *ngIf="ticket?.statuses[ticket?.statuses?.length - 1]?.status === ticketStatusEnum.OPEN || ticket?.statuses[ticket?.statuses?.length - 1]?.status === ticketStatusEnum.BLOCKED"
+      (click)="onEditTicketStatus(ticketStatusEnum.IN_PROGRESS)"
+    >Process ticket</button>
+    <button
+      class="btn-primary"
+      *ngIf="ticket?.statuses[ticket?.statuses?.length - 1]?.status === ticketStatusEnum.IN_PROGRESS"
+      (click)="onEditTicketStatus(ticketStatusEnum.BLOCKED)"
+    >Mark as blocked</button>
+    <button
+      class="btn-primary"
+      *ngIf="ticket?.statuses[ticket?.statuses?.length - 1]?.status === ticketStatusEnum.IN_PROGRESS"
+      (click)="onEditTicketStatus(ticketStatusEnum.CLOSED)"
+    >Close ticket</button>
+  </div>
+</div>

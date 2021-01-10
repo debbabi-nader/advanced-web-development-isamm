@@ -1,0 +1,30 @@
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.row+.row,
+.column+.column,
+.row+.column,
+.column+.row {
+  margin-top: 16px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+
+  .value {
+    margin-top: 12px;
+  }
+}
+
+.label {
+  margin: 0;
+  font-weight: bold;
+  min-width: 160px;
+}
+
+.value {
+  margin: 0;
+}

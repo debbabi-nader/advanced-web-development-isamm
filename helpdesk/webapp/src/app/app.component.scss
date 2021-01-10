@@ -1,0 +1,19 @@
+.navbar {
+  width: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+  background-color: #242526;
+  border-bottom: 1px solid #3E4042;
+
+  h2 {
+    display: inline;
+    margin: 0;
+    cursor: pointer;
+  }
+}
+
+.container {
+  width: 75%;
+  padding: 64px 0px;
+  margin: 0 auto;
+}

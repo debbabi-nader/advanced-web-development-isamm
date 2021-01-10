@@ -1,0 +1,26 @@
+.pagination-container {
+  display: flex;
+  align-items: center;
+
+  .pagination-information {
+    font-size: 12px;
+  }
+
+  .pagination-control {
+    margin-left: 18px;
+
+    i {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    i+i {
+      margin-left: 8px;
+    }
+
+    .disabled {
+      color: #4e4e4e;
+      cursor: default;
+    }
+  }
+}

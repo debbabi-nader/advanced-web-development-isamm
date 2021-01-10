@@ -1,0 +1,62 @@
+<div class="card">
+  <div class="card-header">
+    <p class="title">Tickets</p>
+  </div>
+  <div class="card-body">
+    <table aria-describedby="table">
+      <thead>
+        <tr>
+          <th id="label">Label</th>
+          <th id="status">Status</th>
+          <th id="created-since">Created since</th>
+          <th id="created-by">Created by</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          class="clickable"
+          *ngFor="let ticket of ticketsPage?.elements"
+          [routerLink]="['/tickets/ticket-details/' + ticket.id]"
+        >
+          <td>{{ ticket.label }}</td>
+          <td>{{ ticket.statuses[ticket.statuses.length - 1]?.status | ticketStatus }}</td>
+          <td>{{ ticket.statuses[0]?.timestamp | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ ticket.createdBy?.email }}</td>
+        </tr>
+        <tr *ngIf="!ticketsPage || ticketsPage.totalElements === 0">
+          <td colspan="4">No available tickets</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer">
+    <button
+      class="btn-primary"
+      [routerLink]="['/tickets/create-ticket']"
+    >
+      <i class="eva eva-plus"></i>
+      Create new ticket
+    </button>
+    <div class="spacer"></div>
+    <div
+      *ngIf="ticketsPage"
+      class="pagination-container"
+    >
+      <div class="pagination-information">
+        {{ from + ' - ' + to + ' of ' + ticketsPage.totalElements }}
+      </div>
+      <div class="pagination-control">
+        <i
+          class="eva eva-chevron-left-outline"
+          [class.disabled]="ticketsPage.first"
+          (click)="onPreviousPage()"
+        ></i>
+        <i
+          class="eva eva-chevron-right-outline"
+          [class.disabled]="ticketsPage.last"
+          (click)="onNextPage()"
+        ></i>
+      </div>
+    </div>
+  </div>
+</div>
