@@ -8,7 +8,7 @@ import com.helpdesk.api.entities.TicketStatusEntity;
 
 public interface TicketService {
 
-    public Page<TicketEntity> findTicketsByCreatorId(String creatorId, int page, int size);
+    public Page<TicketEntity> findTickets(int page, int size, String creatorId);
 
     public TicketEntity findTicketById(String ticketId);
 

@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { TicketService } from '../../services/ticket.service';
+import { TicketService } from '../../../../services/ticket.service';
+
+import { blankValidator } from '../../../../utils/validators.util';
 
 import { ITicket } from '../../../../models/ticket.model';
 import { ITicketUpdate } from '../../../../models/ticket-update.model';
@@ -17,8 +19,8 @@ export class EditTicketComponent implements OnInit {
   ticket: ITicket;
 
   editTicketFormGroup: FormGroup = this.formBuilder.group({
-    label:          [ '', [ Validators.required ] ],
-    description:    [ '', [ Validators.maxLength(200) ] ]
+    label:             [ '', [ Validators.required ], [ blankValidator() ] ],
+    description:       [ '', [ Validators.maxLength(200) ] ]
   });
 
   constructor(

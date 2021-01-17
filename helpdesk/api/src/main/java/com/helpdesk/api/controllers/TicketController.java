@@ -1,5 +1,7 @@
 package com.helpdesk.api.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-
 import com.helpdesk.api.dto.PageDTO;
 import com.helpdesk.api.dto.TicketCreationDTO;
 import com.helpdesk.api.dto.TicketDTO;
@@ -22,7 +22,7 @@ import com.helpdesk.api.services.TicketService;
 
 
 @RestController
-@RequestMapping("/tickets")
+@RequestMapping("/api/tickets")
 public class TicketController {
 
     private final TicketService ticketService;
@@ -32,13 +32,13 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
-    @GetMapping(params = { "creatorId", "page", "size" })
-    public PageDTO<TicketDTO> findTicketsByCreatorId(
-            @RequestParam("creatorId") String creatorId,
-            @RequestParam("page") int page,
-            @RequestParam("size") int size) {
+    @GetMapping(params = { "page", "size" })
+    public PageDTO<TicketDTO> findTickets(
+            @RequestParam(name = "page", required = true) int page,
+            @RequestParam(name = "size", required = true) int size,
+            @RequestParam(name = "creatorId", required = false) String creatorId) {
 
-        return PageDTO.from(ticketService.findTicketsByCreatorId(creatorId, page, size).map(TicketDTO::from));
+        return PageDTO.from(this.ticketService.findTickets(page, size, creatorId).map(TicketDTO::from));
 
     }
 

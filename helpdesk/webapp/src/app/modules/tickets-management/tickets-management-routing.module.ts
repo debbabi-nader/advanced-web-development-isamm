@@ -30,6 +30,11 @@ const TICKETS_MANAGEMENT_ROUTES: Routes = [
         component: EditTicketComponent
       }
     ]
+  },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full'
   }
 ];
 

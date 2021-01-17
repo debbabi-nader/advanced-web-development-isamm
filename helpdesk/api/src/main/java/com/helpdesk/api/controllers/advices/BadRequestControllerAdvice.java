@@ -20,7 +20,8 @@ public class BadRequestControllerAdvice {
     private static final Logger LOGGER = LoggerFactory.getLogger(BadRequestControllerAdvice.class);
 
     @ExceptionHandler(value = { MethodArgumentNotValidException.class })
-    public ResponseEntity<ErrorResponseDTO> handleMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException) {
+    public ResponseEntity<ErrorResponseDTO> handleMethodArgumentNotValidException(
+            MethodArgumentNotValidException methodArgumentNotValidException) {
 
         LOGGER.error("handleMethodArgumentNotValidException is invoked...", methodArgumentNotValidException);
 

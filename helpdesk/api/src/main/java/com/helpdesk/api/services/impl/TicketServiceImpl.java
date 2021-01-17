@@ -30,15 +30,15 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Page<TicketEntity> findTicketsByCreatorId(String creatorId, int page, int size) {
-        return this.ticketRepository.findTicketsByCreatorId(creatorId, PageRequest.of(page, size));
+    public Page<TicketEntity> findTickets(int page, int size, String creatorId) {
+        return this.ticketRepository.findTickets(PageRequest.of(page, size), creatorId);
     }
 
     @Override
     public TicketEntity findTicketById(String ticketId) {
 
         return this.ticketRepository.findById(ticketId)
-                .orElseThrow(() -> new ResourceNotFoundException(null, ticketId));
+                .orElseThrow(() -> new ResourceNotFoundException(ticketId));
 
     }
 

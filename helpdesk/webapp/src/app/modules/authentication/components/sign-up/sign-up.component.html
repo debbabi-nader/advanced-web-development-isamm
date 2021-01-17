@@ -1,0 +1,152 @@
+<div class="card">
+  <div class="card-header">
+    <p class="title">Sign up</p>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="signUpFormGroup">
+      <ng-container *ngIf="!signUpFormGroup.get('userType').value">
+        <h4>You are ...</h4>
+        <button
+          class="btn-block btn-secondary"
+          *ngFor="let userType of userTypes"
+          (click)="onUserTypeSelection(userType)"
+        >
+          {{ userType | userType }}
+          <i class="eva eva-chevron-right-outline"></i>
+        </button>
+      </ng-container>
+      <ng-container *ngIf="signUpFormGroup.get('userType').value">
+        <div class="form-group">
+          <input
+            id="firstName"
+            name="firstName"
+            type="text"
+            placeholder="First name"
+            formControlName="firstName"
+          >
+          <ng-container *ngIf="signUpFormGroup.get('firstName').touched">
+            <p
+              class="error-message"
+              *ngIf="signUpFormGroup.get('firstName').hasError('required')"
+            >
+              This field is required
+            </p>
+            <p
+              class="error-message"
+              *ngIf="signUpFormGroup.get('firstName').hasError('blank')"
+            >
+              First name cannot be blank
+            </p>
+          </ng-container>
+        </div>
+        <div class="form-group">
+          <input
+            id="lastName"
+            name="lastName"
+            type="text"
+            placeholder="Last name"
+            formControlName="lastName"
+          >
+          <ng-container *ngIf="signUpFormGroup.get('lastName').touched">
+            <p
+              class="error-message"
+              *ngIf="signUpFormGroup.get('lastName').hasError('required')"
+            >
+              This field is required
+            </p>
+            <p
+              class="error-message"
+              *ngIf="signUpFormGroup.get('lastName').hasError('blank')"
+            >
+              Last name cannot be blank
+            </p>
+          </ng-container>
+        </div>
+        <div class="form-group">
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Email address"
+            formControlName="email"
+          >
+          <ng-container *ngIf="signUpFormGroup.get('email').touched">
+            <p
+              class="error-message"
+              *ngIf="signUpFormGroup.get('email').hasError('required')"
+            >
+              This field is required
+            </p>
+            <p
+              class="error-message"
+              *ngIf="signUpFormGroup.get('email').hasError('customEmail')"
+            >
+              Invalid email address
+            </p>
+            <p
+              class="error-message"
+              *ngIf="signUpFormGroup.get('email').hasError('notUnique')"
+            >
+              An account with the same email address already exists
+            </p>
+          </ng-container>
+        </div>
+        <div class="form-group">
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+          >
+          <ng-container *ngIf="signUpFormGroup.get('password').touched">
+            <p
+              class="error-message"
+              *ngIf="signUpFormGroup.get('password').hasError('required')"
+            >
+              This field is required
+            </p>
+            <p
+              class="error-message"
+              *ngIf="signUpFormGroup.get('password').hasError('weakPassword')"
+            >
+              Weak password
+            </p>
+          </ng-container>
+        </div>
+        <div class="form-group">
+          <input
+            id="passwordConfirmation"
+            name="passwordConfirmation"
+            type="password"
+            placeholder="Confirm password"
+            formControlName="passwordConfirmation"
+          >
+          <ng-container *ngIf="signUpFormGroup.get('passwordConfirmation').touched">
+            <p
+              class="error-message"
+              *ngIf="signUpFormGroup.get('passwordConfirmation').hasError('required')"
+            >
+              This field is required
+            </p>
+            <p class="error-message"
+              *ngIf="signUpFormGroup.get('passwordConfirmation').hasError('notConfirmed')"
+            >
+              Password is not confirmed
+            </p>
+          </ng-container>
+        </div>
+      </ng-container>
+    </form>
+  </div>
+  <div class="card-footer">
+    <a [routerLink]="['/authentication/sign-in']">Already a member? Sign in!</a>
+    <div class="spacer"></div>
+    <button
+      class="btn-primary"
+      *ngIf="signUpFormGroup.get('userType').value"
+      (click)="onSignUp()"
+      [disabled]="signUpFormGroup.invalid"
+    >Sign up</button>
+  </div>
+</div>

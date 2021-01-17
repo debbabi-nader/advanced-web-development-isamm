@@ -21,35 +21,39 @@
     </div>
   </div>
   <div class="card-footer">
-    <button
-      class="btn-primary"
-      (click)="onEdit()"
-    >
-      <i class="eva eva-edit-outline"></i>
-      Edit
-    </button>
-    <button
-      class="btn-primary"
-      (click)="onDelete()"
-    >
-      <i class="eva eva-trash-2-outline"></i>
-      Delete
-    </button>
+    <ng-container *ngIf="currentUser?.userType === userTypeEnum.CLIENT">
+      <button
+        class="btn-primary"
+        (click)="onEdit()"
+      >
+        <i class="eva eva-edit-outline start"></i>
+        Edit
+      </button>
+      <button
+        class="btn-primary"
+        (click)="onDelete()"
+      >
+        <i class="eva eva-trash-2-outline start"></i>
+        Delete
+      </button>
+    </ng-container>
     <div class="spacer"></div>
-    <button
-      class="btn-primary"
-      *ngIf="ticket?.statuses[ticket?.statuses?.length - 1]?.status === ticketStatusEnum.OPEN || ticket?.statuses[ticket?.statuses?.length - 1]?.status === ticketStatusEnum.BLOCKED"
-      (click)="onEditTicketStatus(ticketStatusEnum.IN_PROGRESS)"
-    >Process ticket</button>
-    <button
-      class="btn-primary"
-      *ngIf="ticket?.statuses[ticket?.statuses?.length - 1]?.status === ticketStatusEnum.IN_PROGRESS"
-      (click)="onEditTicketStatus(ticketStatusEnum.BLOCKED)"
-    >Mark as blocked</button>
-    <button
-      class="btn-primary"
-      *ngIf="ticket?.statuses[ticket?.statuses?.length - 1]?.status === ticketStatusEnum.IN_PROGRESS"
-      (click)="onEditTicketStatus(ticketStatusEnum.CLOSED)"
-    >Close ticket</button>
+    <ng-container *ngIf="currentUser?.userType === userTypeEnum.OPERATOR">
+      <button
+        class="btn-primary"
+        *ngIf="ticket?.statuses[ticket?.statuses?.length - 1]?.status === ticketStatusEnum.OPEN || ticket?.statuses[ticket?.statuses?.length - 1]?.status === ticketStatusEnum.BLOCKED"
+        (click)="onEditTicketStatus(ticketStatusEnum.IN_PROGRESS)"
+      >Process ticket</button>
+      <button
+        class="btn-primary"
+        *ngIf="ticket?.statuses[ticket?.statuses?.length - 1]?.status === ticketStatusEnum.IN_PROGRESS"
+        (click)="onEditTicketStatus(ticketStatusEnum.BLOCKED)"
+      >Mark as blocked</button>
+      <button
+        class="btn-primary"
+        *ngIf="ticket?.statuses[ticket?.statuses?.length - 1]?.status === ticketStatusEnum.IN_PROGRESS"
+        (click)="onEditTicketStatus(ticketStatusEnum.CLOSED)"
+      >Close ticket</button>
+    </ng-container>
   </div>
 </div>

@@ -13,7 +13,7 @@ import com.helpdesk.api.entities.TicketEntity;
 @Repository
 public interface TicketRepository extends JpaRepository<TicketEntity, String> {
 
-    @Query("SELECT ticket FROM TicketEntity AS ticket WHERE ticket.createdBy.id LIKE :id")
-    public Page<TicketEntity> findTicketsByCreatorId(@Param("id") String creatorId, Pageable pageable);
+    @Query("SELECT ticket FROM TicketEntity AS ticket WHERE (:id IS NULL OR ticket.createdBy.id LIKE :id)")
+    public Page<TicketEntity> findTickets(Pageable pageable, @Param("id") String creatorId);
 
 }

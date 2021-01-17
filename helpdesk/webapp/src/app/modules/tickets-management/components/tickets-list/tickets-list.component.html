@@ -9,7 +9,7 @@
           <th id="label">Label</th>
           <th id="status">Status</th>
           <th id="created-since">Created since</th>
-          <th id="created-by">Created by</th>
+          <th id="created-by" *ngIf="currentUser?.userType === userTypeEnum.OPERATOR">Created by</th>
         </tr>
       </thead>
       <tbody>
@@ -21,7 +21,7 @@
           <td>{{ ticket.label }}</td>
           <td>{{ ticket.statuses[ticket.statuses.length - 1]?.status | ticketStatus }}</td>
           <td>{{ ticket.statuses[0]?.timestamp | date: 'dd/MM/yyyy' }}</td>
-          <td>{{ ticket.createdBy?.email }}</td>
+          <td *ngIf="currentUser?.userType === userTypeEnum.OPERATOR">{{ ticket.createdBy?.email }}</td>
         </tr>
         <tr *ngIf="!ticketsPage || ticketsPage.totalElements === 0">
           <td colspan="4">No available tickets</td>
@@ -32,9 +32,10 @@
   <div class="card-footer">
     <button
       class="btn-primary"
+      *ngIf="currentUser?.userType === userTypeEnum.CLIENT"
       [routerLink]="['/tickets/create-ticket']"
     >
-      <i class="eva eva-plus"></i>
+      <i class="eva eva-plus start"></i>
       Create new ticket
     </button>
     <div class="spacer"></div>

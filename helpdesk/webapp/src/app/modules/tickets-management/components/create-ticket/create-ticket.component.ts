@@ -2,9 +2,15 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { TicketService } from '../../services/ticket.service';
+import { TicketService } from '../../../../services/ticket.service';
+import { StorageService } from '../../../../services/storage.service';
+
+import { blankValidator } from '../../../../utils/validators.util';
 
 import { ITicketCreation } from '../../../../models/ticket-creation.model';
+import { IUser } from '../../../../models/user.model';
+
+import { StorageKeyEnum } from '../../../../enumerations/storage-key.enum';
 
 
 @Component({
@@ -13,21 +19,24 @@ import { ITicketCreation } from '../../../../models/ticket-creation.model';
 })
 export class CreateTicketComponent {
 
+  currentUser: IUser;
+
   createTicketFormGroup: FormGroup = this.formBuilder.group({
-    label:          [ '', [ Validators.required ] ],
-    description:    [ '', [ Validators.maxLength(200) ] ]
+    label:               [ '', [ Validators.required ], [ blankValidator() ] ],
+    description:         [ '', [ Validators.maxLength(200) ] ]
   });
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private ticketService: TicketService
+    private ticketService: TicketService,
+    private storageService: StorageService
   ) { }
 
   onSubmit() {
 
     const ticketCreation: ITicketCreation = this.createTicketFormGroup.value;
-    ticketCreation.creatorId = '1bdc8a4d-0d9c-4e70-8444-5236e4136de9';
+    ticketCreation.creatorId = this.storageService.getItem(StorageKeyEnum.CURRENT_USER_KEY)?.id;
 
     this.ticketService.createTicket(ticketCreation).subscribe(
       () => {

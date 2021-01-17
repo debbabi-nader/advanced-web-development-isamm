@@ -63,8 +63,12 @@ button {
   cursor: pointer;
   transition: 0.3s;
 
-  i {
+  i.start {
     margin-right: 8px;
+  }
+
+  i.end {
+    margin-left: 8px;
   }
 }
 
@@ -93,6 +97,12 @@ button[disabled] {
   &:hover {
     background-color: #3d3e3f;
   }
+}
+
+.btn-block {
+  width: 100%;
+  margin: 12px 0px;
+  justify-content: space-between;
 }
 
 .form-group {
@@ -127,6 +137,17 @@ textarea {
 
 textarea {
   resize: none;
+}
+
+a {
+  color: #0A91AB;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    color: #067c94;
+  }
 }
 
 table {

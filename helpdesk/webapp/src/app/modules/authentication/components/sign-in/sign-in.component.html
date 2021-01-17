@@ -1,0 +1,70 @@
+<div class="card">
+  <div class="card-header">
+    <p class="title">Sign in</p>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="signInFormGroup">
+      <div class="form-group">
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="Email address"
+          formControlName="email"
+        >
+        <ng-container *ngIf="signInFormGroup.get('email').touched">
+          <p
+            class="error-message"
+            *ngIf="signInFormGroup.get('email').hasError('required')"
+          >
+            This field is required
+          </p>
+          <p
+            class="error-message"
+            *ngIf="signInFormGroup.get('email').hasError('customEmail')"
+          >
+            Invalid email address
+          </p>
+          <p
+            class="error-message"
+            *ngIf="signInFormGroup.get('email').hasError('accountNotFound')"
+          >
+            No account was found for this email address
+          </p>
+        </ng-container>
+      </div>
+      <div class="form-group">
+        <input
+          id="password"
+          name="password"
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+        >
+        <ng-container *ngIf="signInFormGroup.get('password').touched">
+          <p
+            class="error-message"
+            *ngIf="signInFormGroup.get('password').hasError('required')"
+          >
+            This field is required
+          </p>
+          <p
+            class="error-message"
+            *ngIf="signInFormGroup.get('password').hasError('wrongPassword')"
+          >
+            Wrong password
+          </p>
+        </ng-container>
+      </div>
+    </form>
+  </div>
+  <div class="card-footer">
+    <a [routerLink]="['/authentication/sign-up']">You don't have an account? Sign up!</a>
+    <div class="spacer"></div>
+    <button
+      class="btn-primary"
+      (click)="onSignIn()"
+      [disabled]="signInFormGroup.invalid"
+    >Sign in</button>
+  </div>
+</div>

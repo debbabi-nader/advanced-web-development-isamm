@@ -12,12 +12,20 @@
           placeholder="Label"
           formControlName="label"
         >
-        <p
-          class="error-message"
-          *ngIf="editTicketFormGroup.get('label').touched && editTicketFormGroup.get('label').hasError('required')"
-        >
-          This field is required
-        </p>
+        <ng-container *ngIf="editTicketFormGroup.get('label').touched">
+          <p
+            class="error-message"
+            *ngIf="editTicketFormGroup.get('label').hasError('required')"
+          >
+            This field is required
+          </p>
+          <p
+            class="error-message"
+            *ngIf="editTicketFormGroup.get('label').hasError('blank')"
+          >
+            Label cannot be blank
+          </p>
+        </ng-container>
       </div>
       <div class="form-group">
         <textarea

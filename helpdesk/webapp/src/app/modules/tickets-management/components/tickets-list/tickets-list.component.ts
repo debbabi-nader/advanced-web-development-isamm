@@ -3,7 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { IPage } from '../../../../models/page.model';
 import { ITicket } from '../../../../models/ticket.model';
 
-import { TicketService } from '../../services/ticket.service';
+import { TicketService } from '../../../../services/ticket.service';
+import { StorageService } from '../../../../services/storage.service';
+
+import { IUser } from '../../../../models/user.model';
+
+import { StorageKeyEnum } from '../../../../enumerations/storage-key.enum';
+import { UserTypeEnum } from '../../../../enumerations/user-type.enum';
 
 
 const PAGE_SIZE: number = 5;
@@ -14,6 +20,10 @@ const PAGE_SIZE: number = 5;
   styleUrls: ['./tickets-list.component.scss']
 })
 export class TicketsListComponent implements OnInit {
+
+  currentUser: IUser;
+
+  userTypeEnum = UserTypeEnum;
 
   ticketsPage: IPage<ITicket>;
 
@@ -26,15 +36,18 @@ export class TicketsListComponent implements OnInit {
   }
 
   constructor(
-    private ticketService: TicketService
+    private ticketService: TicketService,
+    private storageService: StorageService
   ) { }
 
   ngOnInit() {
+    this.currentUser = this.storageService.getItem(StorageKeyEnum.CURRENT_USER_KEY);
     this.loadTickets(0);
   }
 
   private loadTickets(page: number) {
-    this.ticketService.getTickets('1bdc8a4d-0d9c-4e70-8444-5236e4136de9', page, PAGE_SIZE).subscribe(
+    const creatorId = this.currentUser?.userType === UserTypeEnum.CLIENT ? this.currentUser?.id : undefined;
+    this.ticketService.getTickets(page, PAGE_SIZE, creatorId).subscribe(
       (ticketsPage: IPage<ITicket>) => {
         this.ticketsPage = ticketsPage;
       },

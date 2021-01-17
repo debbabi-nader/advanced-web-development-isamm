@@ -27,19 +27,19 @@ public final class ErrorResponseDTO implements Serializable {
     }
 
     public int getStatus() {
-        return status;
+        return this.status;
     }
 
     public String getError() {
-        return error;
+        return this.error;
     }
 
     public String getMessage() {
-        return message;
+        return this.message;
     }
 
     public Instant getTimestamp() {
-        return timestamp;
+        return this.timestamp;
     }
 
 }

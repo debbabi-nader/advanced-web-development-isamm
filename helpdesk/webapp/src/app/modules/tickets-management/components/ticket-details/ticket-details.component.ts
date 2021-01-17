@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
-import { TicketService } from '../../services/ticket.service';
+import { TicketService } from '../../../../services/ticket.service';
+import { StorageService } from '../../../../services/storage.service';
 
 import { ITicket } from '../../../../models/ticket.model';
 import { ITicketStatusCreation } from '../../../../models/ticket-status-creation.model';
+import { IUser } from '../../../../models/user.model';
 
+import { StorageKeyEnum } from '../../../../enumerations/storage-key.enum';
+import { UserTypeEnum } from '../../../../enumerations/user-type.enum';
 import { TicketStatusEnum } from '../../../../enumerations/ticket-status.enum';
 
 
@@ -15,6 +19,10 @@ import { TicketStatusEnum } from '../../../../enumerations/ticket-status.enum';
 })
 export class TicketDetailsComponent implements OnInit {
 
+  currentUser: IUser;
+
+  userTypeEnum = UserTypeEnum;
+
   ticket: ITicket;
 
   ticketStatusEnum = TicketStatusEnum;
@@ -22,10 +30,12 @@ export class TicketDetailsComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private ticketService: TicketService
+    private ticketService: TicketService,
+    private storageService: StorageService
   ) { }
 
   ngOnInit() {
+    this.currentUser = this.storageService.getItem(StorageKeyEnum.CURRENT_USER_KEY);
     this.activatedRoute.paramMap.subscribe(
       (paramMap: ParamMap) => {
         this.loadTicketById(paramMap.get('ticketId'));
